@@ -1,0 +1,16 @@
+.vscode
+
+Store.Api/bin/Debug
+Store.Api/obj
+
+Store.Domain/bin/Debug
+Store.Domain/obj
+
+Store.Infra/bin/Debug
+Store.Infra/obj
+
+Store.Shared/bin/Debug
+Store.Shared/obj
+
+Store.Tests/bin/Debug
+Store.Tests/obj
