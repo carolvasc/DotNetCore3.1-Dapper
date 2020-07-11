@@ -1,10 +1,11 @@
 using System;
+using FluentValidator;
 
 namespace Store.Domain.StoreContext.Entities
 {
-    public class Product
+    public class Product : Notifiable
     {
-        public Product(string title, string description, string image, decimal price, string quantity)
+        public Product(string title, string description, string image, decimal price, decimal quantity)
         {
             Title = title;
             Description = description;
@@ -17,7 +18,7 @@ namespace Store.Domain.StoreContext.Entities
         public string Description { get; private set; }
         public string Image { get; private set; }
         public decimal Price { get; private set; }
-        public string QuantityOnHand { get; private set; }
+        public decimal QuantityOnHand { get; private set; }
 
         public override string ToString()
         {

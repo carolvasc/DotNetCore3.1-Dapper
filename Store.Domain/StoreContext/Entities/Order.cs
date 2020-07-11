@@ -1,11 +1,12 @@
 using System;
 using System.Linq;
+using FluentValidator;
 using System.Collections.Generic;
 using Store.Domain.StoreContext.Enums;
 
 namespace Store.Domain.StoreContext.Entities
 {
-    public class Order
+    public class Order : Notifiable
     {
         private readonly IList<OrderItem> _items;
         private readonly IList<Delivery> _deliveries;
@@ -38,7 +39,8 @@ namespace Store.Domain.StoreContext.Entities
 
         public void Place()
         {
-
+            if(_items.Count == 0)
+                AddNotification("Order", "Este pedido não possui itens");
         }
 
         public void Pay()
