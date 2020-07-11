@@ -1,4 +1,5 @@
 using FluentValidator;
+using FluentValidator.Validation;
 
 namespace Store.Domain.StoreContext.ValueObjects
 {
@@ -7,6 +8,10 @@ namespace Store.Domain.StoreContext.ValueObjects
         public Document(string number)
         {
             Number = number;
+
+            AddNotifications(new ValidationContract()
+                .IsTrue(Validate(number), "Document", "CPF Inválido")
+            );
         }
 
         public string Number { get; private set; }
