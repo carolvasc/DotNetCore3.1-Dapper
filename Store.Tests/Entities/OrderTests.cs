@@ -34,10 +34,10 @@ namespace Store.Tests
 
     public Customer createValidCustomer()
     {
-      var name = new Name("Carol", "Vasconcelos");
-      var document = new Document("37434841885");
-      var email = new Email("cvsouza04@gmail.com");
-      var phone = "11 952023724";
+      var name = new Name("César", "Figueiredo");
+      var document = new Document("66162305031");
+      var email = new Email("cezinha@gmail.com");
+      var phone = "11 956234152";
 
       return new Customer(name, document, email, phone);
     }
