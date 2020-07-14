@@ -1,9 +1,10 @@
 using FluentValidator;
+using Store.Shared.Commands;
 using FluentValidator.Validation;
 
 namespace Store.Domain.StoreContext.CustomerCommands.Inputs
 {
-  public class CreateCustomerCommand : Notifiable
+  public class CreateCustomerCommand : Notifiable, ICommand
   {
     public string FirstName { get; set; }
     public string LastName { get; set; }
@@ -23,7 +24,7 @@ namespace Store.Domain.StoreContext.CustomerCommands.Inputs
         .IsEmail(Email, "Address", "O E-mail está inválido.")
         .HasLen(Document, 11, "Document", "CPF inválido")
       );
-      return Valid();
+      return IsValid;
     }
   }
 }
