@@ -11,7 +11,7 @@ namespace Store.Domain.StoreContext.ValueObjects
 
       AddNotifications(new ValidationContract()
         .Requires()
-        .IsEmail(Address, "Address", "O E-mail está inválido.")
+        .IsEmail(Address, "Email", "O E-mail está inválido.")
       );
     }
     public string Address { get; private set; }
