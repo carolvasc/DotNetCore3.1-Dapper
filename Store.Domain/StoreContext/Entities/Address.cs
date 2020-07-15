@@ -1,8 +1,9 @@
 using Store.Domain.StoreContext.Enums;
+using Store.Shared.Entities;
 
 namespace Store.Domain.StoreContext.ValueObjects
 {
-  public class Address
+  public class Address : Entity
   {
     public Address(string street, string number, string complement, string district, string city, string state, string country, string zipcode, EAddressType type)
     {
