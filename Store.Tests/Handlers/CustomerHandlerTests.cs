@@ -20,6 +20,10 @@ namespace Store.Shared.Handlers
       Assert.AreEqual(true, command.Valid());
 
       var handler = new CustomerHandler(new FakeCustomerRepository(), new FakeEmailService());
+      var result = handler.Handle(command);
+
+      Assert.AreNotEqual(null, result);
+      Assert.AreEqual(true, handler.IsValid);
     }
   }
 }
