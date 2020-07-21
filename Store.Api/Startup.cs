@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Store.Domain.StoreContext.Repositories;
+using Store.Domain.StoreContext.Services;
+using Store.Infra.DataContexts;
+using Store.Infra.StoreContext.Repositories;
 
 namespace Store.Api
 {
@@ -14,6 +18,10 @@ namespace Store.Api
         {
             services.AddMvc();
             services.AddMvc(option => option.EnableEndpointRouting = false);
+
+            services.AddScoped<DataContext, DataContext>();
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<IEmailService, EmailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
