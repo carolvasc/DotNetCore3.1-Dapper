@@ -6,6 +6,8 @@ using Store.Domain.StoreContext.Repositories;
 using Store.Domain.StoreContext.Queries;
 using Store.Infra.DataContexts;
 using Dapper;
+using System.Collections.Generic;
+using System;
 
 namespace Store.Infra.StoreContext.Repositories
 {
@@ -46,6 +48,35 @@ namespace Store.Infra.StoreContext.Repositories
               new { Email = email },
               commandType: CommandType.StoredProcedure)
             .FirstOrDefault();
+    }
+
+    // TODO: Criar uma Store Procedure ao invés de deixar o select na mão
+    public IEnumerable<ListCustomerQueryResult> Get()
+    {
+      return _context
+           .Connection
+           .Query<ListCustomerQueryResult>(
+             "SELECT [Id], CONCAT([FirstName, ' ', [LastName]) AS [Name], [Document], [Email] FROM [Customer]",
+             new { });
+    }
+
+    public GetCustomerQueryResult GetById(Guid id)
+    {
+      return _context
+           .Connection
+           .Query<GetCustomerQueryResult>(
+             "SELECT [Id], CONCAT([FirstName, ' ', [LastName]) AS [Name], [Document], [Email] FROM [Customer] WHERE [Id]=@id",
+             new { id = id })
+             .FirstOrDefault();
+    }
+
+    public IEnumerable<ListCustomerOrdersQueryResult> GetOrders(Guid id)
+    {
+      return _context
+           .Connection
+           .Query<ListCustomerOrdersQueryResult>(
+             "",
+             new { });
     }
 
     public CustomerOrdersCountResult GetCustomerOrdersCount(string document)
