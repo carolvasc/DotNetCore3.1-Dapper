@@ -6,15 +6,19 @@ using Store.Domain.StoreContext.ValueObjects;
 using Store.Domain.StoreContext.CustomerCommands.Inputs;
 using Store.Domain.StoreContext.Queries;
 using Store.Domain.StoreContext.Repositories;
+using Store.Domain.StoreContext.Handlers;
+using Store.Domain.StoreContext.CustomerCommands.Outputs;
 
 namespace Store.Api.Controllers
 {
   public class CustomerController : Controller
   {
     private readonly ICustomerRepository _repository;
-    public CustomerController(ICustomerRepository repository)
+    private readonly CustomerHandler _handler;
+    public CustomerController(ICustomerRepository repository, CustomerHandler handler)
     {
       _repository = repository;
+      _handler = handler;
     }
 
     [HttpGet]
@@ -40,14 +44,13 @@ namespace Store.Api.Controllers
 
     [HttpPost]
     [Route("customers/{id:int}")]
-    public Customer Post([FromBody] CreateCustomerCommand command)
+    public object Post([FromBody] CreateCustomerCommand command)
     {
-      var name = new Name(command.FirstName, command.LastName);
-      var document = new Document(command.Document);
-      var email = new Email(command.Email);
-      var customer = new Customer(name, document, email, command.Phone);
+      var result = (CreateCustomerCommandResult)_handler.Handle(command);
+      if (_handler.Invalid)
+        return BadRequest(_handler.Notifications);
 
-      return customer;
+      return result;
     }
 
     [HttpPut]

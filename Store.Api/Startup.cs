@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Store.Domain.StoreContext.Handlers;
 using Store.Domain.StoreContext.Repositories;
 using Store.Domain.StoreContext.Services;
 using Store.Infra.DataContexts;
@@ -22,6 +23,7 @@ namespace Store.Api
             services.AddScoped<DataContext, DataContext>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<CustomerHandler, CustomerHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
