@@ -20,6 +20,8 @@ namespace Store.Api
             services.AddMvc();
             services.AddMvc(option => option.EnableEndpointRouting = false);
 
+            services.AddResponseCompression();
+
             services.AddScoped<DataContext, DataContext>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IEmailService, EmailService>();
@@ -35,6 +37,8 @@ namespace Store.Api
             }
 
             app.UseMvc();
+
+            app.UseResponseCompression();
 
             app.UseRouting();
 
