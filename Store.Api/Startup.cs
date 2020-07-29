@@ -9,6 +9,8 @@ using Store.Domain.StoreContext.Repositories;
 using Store.Domain.StoreContext.Services;
 using Store.Infra.DataContexts;
 using Store.Infra.StoreContext.Repositories;
+using Elmah.Io.AspNetCore;
+using System;
 
 namespace Store.Api
 {
@@ -34,6 +36,12 @@ namespace Store.Api
           x.SwaggerDoc("v1", new OpenApiInfo { Title = "Store", Version = "v1" });
         }
       });
+
+      services.AddElmahIo(o =>
+      {
+        o.ApiKey = "8113b6776a774f65bf7f4a9a4beb645f";
+        o.LogId = new Guid("b6686d7c-f338-4fc2-b18d-be0fd943e628");
+      });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +61,8 @@ namespace Store.Api
       {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Store - v1");
       });
+
+      app.UseElmahIo();
 
       app.UseRouting();
 

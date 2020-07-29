@@ -11,11 +11,12 @@ namespace Store.Api.Controllers
       return new { version = "Version 0.0.1" };
     }
 
-    [HttpPost]
-    [Route("rota/01")]
-    public object Post()
+    [HttpGet]
+    [Route("error")]
+    public string Error()
     {
-      return new { version = "Version 0.0.1" };
+      throw new System.Exception("Algum erro ocorreu!");
+      return "Error";
     }
 
     [HttpPut]
