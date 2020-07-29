@@ -8,6 +8,7 @@ using Store.Domain.StoreContext.Queries;
 using Store.Domain.StoreContext.Repositories;
 using Store.Domain.StoreContext.Handlers;
 using Store.Domain.StoreContext.CustomerCommands.Outputs;
+using Store.Shared.Commands;
 
 namespace Store.Api.Controllers
 {
@@ -44,11 +45,9 @@ namespace Store.Api.Controllers
 
     [HttpPost]
     [Route("customers/{id:int}")]
-    public object Post([FromBody] CreateCustomerCommand command)
+    public ICommandResult Post([FromBody] CreateCustomerCommand command)
     {
       var result = (CreateCustomerCommandResult)_handler.Handle(command);
-      if (_handler.Invalid)
-        return BadRequest(_handler.Notifications);
 
       return result;
     }

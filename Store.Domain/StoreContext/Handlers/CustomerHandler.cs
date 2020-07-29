@@ -49,13 +49,13 @@ namespace Store.Domain.StoreContext.Handlers
       AddNotifications(customer.Notifications);
 
       if (Invalid)
-        return null;
+        return new CommandResult(false, "Por favor, corrija os campos abaixo", Notifications);
 
       _repository.Save(customer);
 
       _emailService.Send(email.Address, "test@gmail.com", "Bem vindo", "Seja bem vindo");
 
-      return new CreateCustomerCommandResult(customer.Id, name.ToString(), email.Address);
+      return new CommandResult(true, "Bem vindo à Store", new { Id = customer.Id, Name = name.ToString(), Email = email.Address });
     }
 
     public ICommandResult Handle(AddAddressCommand command)
