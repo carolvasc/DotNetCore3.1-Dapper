@@ -11,15 +11,25 @@ using Store.Infra.DataContexts;
 using Store.Infra.StoreContext.Repositories;
 using Elmah.Io.AspNetCore;
 using System;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using Store.Shared;
 
 namespace Store.Api
 {
   public class Startup
   {
+    public static IConfiguration Configuration { get; set; }
     // This method gets called by the runtime. Use this method to add services to the container.
     // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
     public void ConfigureServices(IServiceCollection services)
     {
+      var builder = new ConfigurationBuilder()
+        .SetBasePath(Directory.GetCurrentDirectory())
+        .AddJsonFile("appsettings.json");
+
+        Configuration = builder.Build();
+        
       services.AddMvc();
       services.AddMvc(option => option.EnableEndpointRouting = false);
 
@@ -42,6 +52,8 @@ namespace Store.Api
         o.ApiKey = "8113b6776a774f65bf7f4a9a4beb645f";
         o.LogId = new Guid("b6686d7c-f338-4fc2-b18d-be0fd943e628");
       });
+
+      Settings.ConnectionString = $"{Configuration["connectionString"]}";
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
