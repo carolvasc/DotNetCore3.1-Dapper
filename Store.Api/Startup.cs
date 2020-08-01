@@ -28,8 +28,10 @@ namespace Store.Api
         .SetBasePath(Directory.GetCurrentDirectory())
         .AddJsonFile("appsettings.json");
 
-        Configuration = builder.Build();
-        
+      Configuration = builder.Build();
+
+      //services.AddApplicationInsightsTelemetry(Configuration);
+
       services.AddMvc();
       services.AddMvc(option => option.EnableEndpointRouting = false);
 
